@@ -5,7 +5,7 @@ body {
 	background-color: rgb(70, 70, 70);
 }
 
-.container {
+.grid-container {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(4, 1fr);
@@ -17,12 +17,12 @@ body {
 	border-radius: 10px;
 }
 
-.container div {
+.grid-container div {
 	background-color: rgb(154, 67, 235);
 	border: 10px solid black;
-	font-size: xx-large;
+	font-size: 100px;
 	text-align: center;
-	border-radius: 10px;
+	border-radius: 20px;
 }
 
 .num {
@@ -43,18 +43,22 @@ body {
 	justify-content: right;
 }
 
-.container-button {
+.score-container {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	margin-top: 30px;
 }
-.restart-button {
+
+.restart-btn {
 	width: 200px;
     height: 60px;
 	font-size: xx-large;
 	border-radius: 10px;
+	margin-right: 20px;
 }
 
 .score {
-	font-size: xx-large;
+	font-size: 40px;
+	margin-left: 20px;
 }
