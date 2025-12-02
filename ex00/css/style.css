@@ -32,6 +32,7 @@ body {
 	text-align: center;
 	align-items: center;
 	justify-content: center;
+	animation: fadeEffect 1.5 infinite;
 }
 
 .num:empty {
@@ -46,6 +47,7 @@ body {
 	color: #9b7cff;
 	text-shadow: 0 0 8px rgba(155,124,255,0.5);
 	margin-bottom: -120px;
+	animation: fadeEffect 1.5s infinite;
 }
 
 .top-score {
@@ -54,11 +56,6 @@ body {
 	font-size: 40px;
 	color: #9b7cff;
 	text-shadow: 0 0 8px rgba(155,124,255,0.5);
-}
-
-.game-score {
-	display: flex;
-	justify-content: right;
 }
 
 .score-container {
@@ -103,3 +100,9 @@ body {
 .tile-512  { background: #CAB2D6; color: #000; }  /* lavanda */
 .tile-1024 { background: #6A3D9A; color: #fff; }  /* púrpura fuerte */
 .tile-2048 { background: #B15928; color: #fff; }  /* marrón */
+
+@keyframes fadeEffect {
+  0%, 50%, 100%,
+  from { opacity: 0; } /* Estado inicial (invisible) */
+  to { opacity: 1; }
+}
