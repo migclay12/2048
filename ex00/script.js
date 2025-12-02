@@ -32,6 +32,57 @@ function equalTables(table1, table2)
 	return (true);
 }
 
+function checkVictory()
+{
+	for (let i = 0; i < 4; i++)
+	{
+		for (let j = 0; j < 4; j++)
+		{
+			if (table[i][j] === 2048)
+			{
+				alert("VICTORYYYYYY")
+				resetGame();
+				return (true);
+			}
+		}
+	}
+	return (false);
+}
+
+function checkLost()
+{
+	for (let i = 0; i < 4; i++)
+	{
+		for (let j = 0; j < 4; j++)
+		{
+			if (table[i][j] === 0)
+				return (false);
+		}
+	}
+
+	for (let i = 0; i < 4; i++)
+	{
+		for (let j = 0; j < 3; j++)
+		{
+			if (table[i][j] === table[i][j + 1])
+				return (false);
+		}
+	}
+
+	for (let i = 0; i < 3; i++)
+	{
+		for (let j = 0; j < 4; j++)
+		{
+			if (table[i][j] === table[i + 1][j])
+				return (false);
+		}
+	}
+
+	alert("LOOOOOOOOOOOOOST");
+	resetGame();
+	return (true);
+}
+
 function createTable()
 {
 	const gameTable = document.querySelector(".grid-container");
@@ -166,8 +217,12 @@ function moveUp()
 	}
 	
 	createTable();
+	if (checkVictory())
+		return ;
 	if (!equalTables(oldTable, table))
 		createRandom();
+	if (checkLost())
+		return ;
 }
 
 function moveDown()
@@ -210,18 +265,38 @@ function moveDown()
 			}
 		}
 
-		//Volver a desplazar
+		let newNumbers = [];
+		for (let i = 0; i < 4; i++)
+		{
+			if (updated[i] !== 0)
+				newNumbers.push(updated[i]);
+		}
+
+		let final = [];
+		zeros = 4 - newNumbers.length;
+		for (let i = 0; i < zeros; i++)
+		{
+			final.push(0);
+		}
+
+		for (let i = 0; i < newNumbers.length; i++)
+		{
+			final.push(newNumbers[i]);
+		}
 
 		for (let row = 0; row < 4; row++)
 		{
-			//meter la final
-			table[row][col] = updated[row];
+			table[row][col] = final[row];
 		}
 	}
 	
 	createTable();
+	if (checkVictory())
+		return ;
 	if (!equalTables(oldTable, table))
 		createRandom();
+	if (checkLost())
+		return ;
 }
 
 function moveLeft()
@@ -255,17 +330,29 @@ function moveLeft()
 			}
 		}
 
-		//Volver a despalazar
+		let final = [];
+		for (let i = 0; i < updated.length; i++)
+		{
+			if (updated[i] !== 0)
+				final.push(updated[i]);
+		}
+		
+		while (final.length < 4)
+			final.push(0);
 
 		for (let col = 0; col < 4; col++)
 		{
-			//meter la final
-			table[row][col] = updated[col];
+			table[row][col] = final[col];
 		}
 	}
+
 	createTable();
+	if (checkVictory())
+		return ;
 	if (!equalTables(oldTable, table))
 		createRandom();
+	if (checkLost())
+		return ;
 }
 
 function moveRight()
@@ -307,18 +394,39 @@ function moveRight()
 				updated[i - 1] = 0;
 			}
 		}
+		
+		let newNumbers = [];
+		for (let i = 0; i < 4; i++)
+		{
+			if (updated[i] !== 0)
+				newNumbers.push(updated[i]);
+		}
 
-		//Update move
+		let final = [];
+		zeros = 4 - newNumbers.length;
+		for (let i = 0; i < zeros; i++)
+		{
+			final.push(0);
+		}
+
+		for (let i = 0; i < newNumbers.length; i++)
+		{
+			final.push(newNumbers[i]);
+		}
 
 		for (let col = 0; col < 4; col++)
 		{
-			//meter la final
-			table[row][col] = updated[col];
+			table[row][col] = final[col];
 		}
 	}
+
 	createTable();
+	if (checkVictory())
+		return ;
 	if (!equalTables(oldTable, table))
 		createRandom();
+	if (checkLost())
+		return ;
 }
 
 document.addEventListener("keydown", function(event) {
