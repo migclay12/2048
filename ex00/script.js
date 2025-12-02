@@ -5,6 +5,33 @@ const table = [
 	[0,0,0,0],
 ]
 
+function copyTable()
+{
+	const tableCopy = [];
+	for (let i = 0; i < 4; i++)
+	{
+		tableCopy[i] = [];
+		for (let j = 0; j < 4; j++)
+		{
+			tableCopy[i][j] = table[i][j];
+		}
+	}
+	return (tableCopy);
+}
+
+function equalTables(table1, table2)
+{
+	for (let i = 0; i < 4; i++)
+	{
+		for (let j = 0; j < 4; j++)
+		{
+			if (table1[i][j] !== table2[i][j])
+				return (false);
+		}
+	}
+	return (true);
+}
+
 function createTable()
 {
 	const gameTable = document.querySelector(".grid-container");
@@ -24,12 +51,19 @@ function createTable()
 	}
 }
 
-function updateScore()
+function updateScore(sum)
 {
 	const score = document.querySelector("#score-value");
-	const scoreValue = 0;
+	const currentScore = parseInt(score.textContent);
+	const newScore = currentScore + sum;
 
-	score.innerHTML = scoreValue;
+	score.innerHTML = newScore;
+}
+
+function resetScore()
+{
+	const score = document.querySelector("#score-value");
+	score.textContent = 0;
 }
 
 function randomNumber() {
@@ -41,20 +75,260 @@ function createRandom()
 	const freeCells = [];
 	const cells = document.querySelectorAll(".grid-container .num");
 
-	cells.forEach(cell => {
+	cells.forEach((cell, index) => {
 		if (cell.textContent.trim() === "")
-			freeCells.push(cell);
+		{
+			const row = Math.floor(index / 4);
+			const col = index % 4;
+			freeCells.push({cell: cell, row: row, col: col});
+		}
 	});
 
 	if (freeCells.length > 0)
 	{
 		const randomCell = freeCells[Math.floor(Math.random() * freeCells.length)];
-		randomCell.textContent = randomNumber();
+		const number = randomNumber();
+
+		randomCell.cell.textContent = number;
+		table[randomCell.row][randomCell.col] = number;
 	}
 }
 
 createTable();
-updateScore();
+resetScore();
 createRandom();
 createRandom();
 console.table(table);
+
+function resetGame()
+{
+	for (let i = 0; i < 4; i++)
+	{
+		for (let j = 0; j < 4; j++)
+			table[i][j] = 0;
+	}
+
+	createTable();
+	resetScore();
+	createRandom();
+	createRandom();
+	console.table(table);
+}
+
+const restartBtn = document.querySelector(".restart-btn");
+restartBtn.addEventListener("click", resetGame);
+
+function moveUp()
+{
+	const oldTable = copyTable(table);
+	for (let col = 0; col < 4; col++)
+	{
+		let column = [];
+		for (let row = 0; row < 4; row++)
+		{
+			column.push(table[row][col]);
+		}
+
+		let updated = [];
+		for (let i = 0; i < column.length; i++)
+		{
+			if (column[i] !== 0)
+				updated.push(column[i]);
+		}
+
+		while (updated.length < 4)
+			updated.push(0);
+
+		for (let i = 0; i < 3; i++)
+		{
+			if (updated[i] !== 0 && updated[i] == updated[i + 1])
+			{
+				updated[i] = updated[i] * 2;
+				updateScore(updated[i]);
+				updated[i + 1] = 0;
+			}
+		}
+
+		//VOLVER A DESPALAZAR
+
+		for (let row = 0; row < 4; row++)
+		{
+			table[row][col] = updated[row];
+		}
+	}
+	
+	createTable();
+	if (!equalTables(oldTable, table))
+		createRandom();
+}
+
+function moveDown()
+{
+	const oldTable = copyTable(table);
+	for (let col = 0; col < 4; col++)
+	{
+		let column = [];
+		for (let row = 0; row < 4; row++)
+		{
+			column.push(table[row][col]);
+		}
+
+		let numbers = [];
+		for (let i = 0; i < 4; i++)
+		{
+			if (column[i] !== 0)
+				numbers.push(column[i]);
+		}
+
+		let updated = [];
+		let zeros = 4 - numbers.length;
+		for (let i = 0; i < zeros; i++)
+		{
+			updated.push(0);
+		}
+
+		for (let i = 0; i < numbers.length; i++)
+		{
+			updated.push(numbers[i]);
+		}
+
+		for (let i = 3; i > 0; i--)
+		{
+			if (updated[i] !== 0 && updated[i] == updated[i - 1])
+			{
+				updated[i] = updated[i] * 2;
+				updateScore(updated[i]);
+				updated[i - 1] = 0;
+			}
+		}
+
+		//Volver a desplazar
+
+		for (let row = 0; row < 4; row++)
+		{
+			table[row][col] = updated[row];
+		}
+	}
+	
+	createTable();
+	if (!equalTables(oldTable, table))
+		createRandom();
+}
+
+function moveLeft()
+{
+	const oldTable = copyTable(table);
+	for (let row = 0; row < 4; row++)
+	{
+		let rows = [];
+		for (let col = 0; col < 4; col++)
+		{
+			rows.push(table[row][col]);
+		}
+
+		let updated = [];
+		for (let i = 0; i < rows.length; i++)
+		{
+			if (rows[i] !== 0)
+				updated.push(rows[i]);
+		}
+
+		while (updated.length < 4)
+			updated.push(0);
+
+		for (let i = 0; i < 3; i++)
+		{
+			if (updated[i] !== 0 && updated[i] == updated[i + 1])
+			{
+				updated[i] = updated[i] * 2;
+				updateScore(updated[i]);
+				updated[i + 1] = 0;
+			}
+		}
+
+		//Volver a despalazar
+
+		for (let col = 0; col < 4; col++)
+		{
+			table[row][col] = updated[col];
+		}
+	}
+	createTable();
+	if (!equalTables(oldTable, table))
+		createRandom();
+}
+
+function moveRight()
+{
+	const oldTable = copyTable(table);
+	for (let row = 0; row < 4; row++)
+	{
+		let rows = [];
+		for (let col = 0; col < 4; col++)
+		{
+			rows.push(table[row][col]);
+		}
+
+		let numbers = [];
+		for (let i = 0; i < 4; i++)
+		{
+			if (rows[i] !== 0)
+				numbers.push(rows[i]);
+		}
+
+		let updated = [];
+		let zeros = 4 - numbers.length;
+		for (let i = 0; i < zeros; i++)
+		{
+			updated.push(0);
+		}
+
+		for (let i = 0; i < numbers.length; i++)
+		{
+			updated.push(numbers[i]);
+		}
+
+		for (let i = 3; i > 0; i--)
+		{
+			if (updated[i] !== 0 && updated[i] == updated[i - 1])
+			{
+				updated[i] = updated[i] * 2;
+				updateScore(updated[i]);
+				updated[i - 1] = 0;
+			}
+		}
+
+		//Update move
+
+		for (let col = 0; col < 4; col++)
+		{
+			table[row][col] = updated[col];
+		}
+	}
+	createTable();
+	if (!equalTables(oldTable, table))
+		createRandom();
+}
+
+document.addEventListener("keydown", function(event) {
+	//event.preventDefault();
+
+	switch(event.key) {
+		case "ArrowUp":
+			moveUp();
+			console.table(table);
+			break;
+		case "ArrowDown":
+			moveDown();
+			console.table(table);
+			break;
+		case "ArrowLeft":
+			moveLeft();
+			console.table(table);
+			break;
+		case "ArrowRight":
+			moveRight();
+			console.table(table);
+			break;
+	}
+});
