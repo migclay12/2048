@@ -2,26 +2,28 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: rgb(70, 70, 70);
+	background-color: #2e2e2e;
 }
 
 .grid-container {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	grid-template-rows: repeat(4, 1fr);
-	background-color: black;
+	background-color: #a6a6a6;
+	/* border: 10px solid black; */
 	position: relative;
-	padding: 10px;
+	/* padding: 10px; */
 	width: 800;
 	height: 800;
-	border-radius: 10px;
+	border-radius: 20px;
 }
 
 .grid-container div {
-	background-color: rgb(154, 67, 235);
-	border: 10px solid black;
-	font-size: 100px;
+	/* background-color: rgb(154, 67, 235); */
+	/* border: 10px solid black; */
+	font-size: 80px;
 	text-align: center;
+	border: 10px solid #a6a6a6;
 	border-radius: 20px;
 }
 
@@ -32,10 +34,17 @@ body {
 	justify-content: center;
 }
 
+.num:empty {
+	background-color: #bfbfbf;
+	border: 10px solid #a6a6a6;
+}
+
 .game-title {
 	display: flex;
 	justify-content: center;
-	font-size: xx-large;
+	font-size: 70px;
+	color: #9b7cff;
+	text-shadow: 0 0 8px rgba(155,124,255,0.5);
 }
 
 .game-score {
@@ -52,13 +61,36 @@ body {
 
 .restart-btn {
 	width: 200px;
-    height: 60px;
-	font-size: xx-large;
-	border-radius: 10px;
+	height: 60px;
 	margin-right: 20px;
+	font-size: xx-large;
+    background: #9b7cff;
+    color: #2e2e2e;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #b69aff;
 }
 
 .score {
 	font-size: 40px;
 	margin-left: 20px;
+	color: #f1f1f1;
 }
+
+.tile-2    { background: #E0E0E0; color: #000; }  /* gris claro */
+.tile-4    { background: #A6CEE3; color: #000; }  /* azul claro */
+.tile-8    { background: #1F78B4; color: #fff; }  /* azul fuerte */
+.tile-16   { background: #33A02C; color: #fff; }  /* verde accesible */
+.tile-32   { background: #FB9A99; color: #000; }  /* salmón */
+.tile-64   { background: #E31A1C; color: #fff; }  /* rojo fuerte */
+.tile-128  { background: #FDBF6F; color: #000; }  /* naranja suave */
+.tile-256  { background: #FF7F00; color: #fff; }  /* naranja fuerte */
+.tile-512  { background: #CAB2D6; color: #000; }  /* lavanda */
+.tile-1024 { background: #6A3D9A; color: #fff; }  /* púrpura fuerte */
+.tile-2048 { background: #B15928; color: #fff; }  /* marrón */

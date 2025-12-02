@@ -94,8 +94,12 @@ function createTable()
 		{
 			const cell = document.createElement("div");
 			cell.classList.add("num");
-			cell.textContent = value;
-			if (cell.textContent == 0)
+			if (value !== 0)
+			{
+				cell.classList.add(`tile-${value}`);
+				cell.textContent = parseInt(value);
+			}
+			else
 				cell.textContent = "";
 			gameTable.appendChild(cell);
 		}
@@ -118,7 +122,7 @@ function resetScore()
 }
 
 function randomNumber() {
-    return Math.random() < 0.5 ? 2 : 4;
+	return Math.random() < 0.5 ? 2 : 4;
 }
 
 function createRandom()
@@ -142,6 +146,13 @@ function createRandom()
 
 		randomCell.cell.textContent = number;
 		table[randomCell.row][randomCell.col] = number;
+
+		randomCell.cell.classList.forEach(cls => {
+		if (cls.startsWith("tile-"))
+			randomCell.cell.classList.remove(cls);
+		});
+
+		randomCell.cell.classList.add(`tile-${number}`);
 	}
 }
 
