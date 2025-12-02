@@ -5,6 +5,8 @@ const table = [
 	[0,0,0,0],
 ]
 
+let mergedCells = [];
+
 function copyTable()
 {
 	const tableCopy = [];
@@ -118,13 +120,11 @@ function updateScore(sum)
 
 	score.innerHTML = newScore;
 
-/* 	const topScore = document.querySelector("#top-score-value");
-	const currentTopScore = parseInt(topScore.textContent);
-	if (currentTopScore === 0)
-		topScore.textContent = 0;
+	const topScore = document.querySelector("#top-score-value");
+	const currentTopScore = parseInt(topScore.textContent) || 0; // Usar || 0 para manejar NaN
 	
 	if (newScore > currentTopScore)
-		topScore.innerHTML = newScore; */
+		topScore.textContent = newScore;
 }
 
 function resetScore()
@@ -160,11 +160,15 @@ function createRandom()
 		table[randomCell.row][randomCell.col] = number;
 
 		randomCell.cell.classList.forEach(cls => {
-		if (cls.startsWith("tile-"))
-			randomCell.cell.classList.remove(cls);
+			if (cls.startsWith("tile-"))
+				randomCell.cell.classList.remove(cls);
 		});
 
 		randomCell.cell.classList.add(`tile-${number}`);
+		randomCell.cell.classList.add("tile-new");
+		setTimeout(() => {
+			randomCell.cell.classList.remove("tile-new");
+		}, 200);
 	}
 }
 
@@ -226,7 +230,9 @@ function compactToEnd(arr)
 
 function moveUp()
 {
-	const oldTable = copyTable(table);
+	const oldTable = copyTable();
+	mergedCells = [];
+	
 	for (let col = 0; col < 4; col++)
 	{
 		let column = [];
@@ -251,11 +257,18 @@ function moveUp()
 
 		for (let row = 0; row < 4; row++)
 		{
+			const oldValue = oldTable[row][col];
+			const newValue = final[row];
+			if (oldValue !== 0 && newValue !== 0 && newValue === oldValue * 2)
+			{
+				mergedCells.push({row: row, col: col});
+			}
 			table[row][col] = final[row];
 		}
 	}
 	
 	createTable();
+	animateMergedCells();
 	if (checkVictory())
 		return ;
 	if (!equalTables(oldTable, table))
@@ -266,7 +279,9 @@ function moveUp()
 
 function moveDown()
 {
-	const oldTable = copyTable(table);
+	const oldTable = copyTable();
+	mergedCells = [];
+	
 	for (let col = 0; col < 4; col++)
 	{
 		let column = [];
@@ -291,11 +306,18 @@ function moveDown()
 
 		for (let row = 0; row < 4; row++)
 		{
+			const oldValue = oldTable[row][col];
+			const newValue = final[row];
+			if (oldValue !== 0 && newValue !== 0 && newValue === oldValue * 2)
+			{
+				mergedCells.push({row: row, col: col});
+			}
 			table[row][col] = final[row];
 		}
 	}
 	
 	createTable();
+	animateMergedCells();
 	if (checkVictory())
 		return ;
 	if (!equalTables(oldTable, table))
@@ -306,7 +328,9 @@ function moveDown()
 
 function moveLeft()
 {
-	const oldTable = copyTable(table);
+	const oldTable = copyTable();
+	mergedCells = [];
+
 	for (let row = 0; row < 4; row++)
 	{
 		let rows = [];
@@ -331,11 +355,18 @@ function moveLeft()
 
 		for (let col = 0; col < 4; col++)
 		{
+			const oldValue = oldTable[row][col];
+			const newValue = final[col];
+			if (oldValue !== 0 && newValue !== 0 && newValue === oldValue * 2)
+			{
+				mergedCells.push({row: row, col: col});
+			}
 			table[row][col] = final[col];
 		}
 	}
 
 	createTable();
+	animateMergedCells();
 	if (checkVictory())
 		return ;
 	if (!equalTables(oldTable, table))
@@ -346,7 +377,9 @@ function moveLeft()
 
 function moveRight()
 {
-	const oldTable = copyTable(table);
+	const oldTable = copyTable();
+	mergedCells = [];
+
 	for (let row = 0; row < 4; row++)
 	{
 		let rows = [];
@@ -371,17 +404,39 @@ function moveRight()
 
 		for (let col = 0; col < 4; col++)
 		{
+			const oldValue = oldTable[row][col];
+			const newValue = final[col];
+			if (oldValue !== 0 && newValue !== 0 && newValue === oldValue * 2)
+			{
+				mergedCells.push({row: row, col: col});
+			}
 			table[row][col] = final[col];
 		}
 	}
 
 	createTable();
+	animateMergedCells();
 	if (checkVictory())
 		return ;
 	if (!equalTables(oldTable, table))
 		createRandom();
 	if (checkLost())
 		return ;
+}
+
+function animateMergedCells()
+{
+	mergedCells.forEach(cell => {
+		const cells = document.querySelectorAll(".grid-container .num");
+		const index = cell.row * 4 + cell.col;
+		if (cells[index])
+		{
+			cells[index].classList.add("tile-merged");
+			setTimeout(() => {
+				cells[index].classList.remove("tile-merged");
+			}, 200);
+		}
+	});
 }
 
 document.addEventListener("keydown", function(event) {

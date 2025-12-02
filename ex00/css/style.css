@@ -32,7 +32,7 @@ body {
 	text-align: center;
 	align-items: center;
 	justify-content: center;
-	animation: fadeEffect 1.5 infinite;
+	transition: transform 0.15s ease-in-out;
 }
 
 .num:empty {
@@ -47,7 +47,6 @@ body {
 	color: #9b7cff;
 	text-shadow: 0 0 8px rgba(155,124,255,0.5);
 	margin-bottom: -120px;
-	animation: fadeEffect 1.5s infinite;
 }
 
 .top-score {
@@ -89,6 +88,25 @@ body {
 	color: #f1f1f1;
 }
 
+.tile-merged {
+	animation: pop 0.2s ease-in-out;
+}
+
+.tile-new {
+	animation: appear 0.2s ease-in-out;
+}
+
+@keyframes pop {
+	0% { transform: scale(1); }
+	50% { transform: scale(1.2); }
+	100% { transform: scale(1); }
+}
+
+@keyframes appear {
+	0% { transform: scale(0); }
+	100% { transform: scale(1); }
+}
+
 .tile-2    { background: #E0E0E0; color: #000; }  /* gris claro */
 .tile-4    { background: #A6CEE3; color: #000; }  /* azul claro */
 .tile-8    { background: #1F78B4; color: #fff; }  /* azul fuerte */
@@ -100,9 +118,3 @@ body {
 .tile-512  { background: #CAB2D6; color: #000; }  /* lavanda */
 .tile-1024 { background: #6A3D9A; color: #fff; }  /* púrpura fuerte */
 .tile-2048 { background: #B15928; color: #fff; }  /* marrón */
-
-@keyframes fadeEffect {
-  0%, 50%, 100%,
-  from { opacity: 0; } /* Estado inicial (invisible) */
-  to { opacity: 1; }
-}
