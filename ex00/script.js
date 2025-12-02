@@ -117,6 +117,14 @@ function updateScore(sum)
 	const newScore = currentScore + sum;
 
 	score.innerHTML = newScore;
+
+	const topScore = document.querySelector("#top-score-value");
+	const currentTopScore = parseInt(topScore.textContent);
+	if (currentTopScore === 0)
+		topScore.textContent = 0;
+	
+	if (newScore > currentTopScore)
+		topScore.innerHTML = newScore;
 }
 
 function resetScore()

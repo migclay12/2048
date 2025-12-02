@@ -45,6 +45,15 @@ body {
 	font-size: 70px;
 	color: #9b7cff;
 	text-shadow: 0 0 8px rgba(155,124,255,0.5);
+	margin-bottom: -120px;
+}
+
+.top-score {
+	display: flex;
+	justify-content: center;
+	font-size: 40px;
+	color: #9b7cff;
+	text-shadow: 0 0 8px rgba(155,124,255,0.5);
 }
 
 .game-score {
