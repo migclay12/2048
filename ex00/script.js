@@ -40,9 +40,11 @@ function checkVictory()
 		{
 			if (table[i][j] === 2048)
 			{
-				alert("VICTORYYYYYY")
-				resetGame();
-				return (true);
+				setTimeout(() => {
+					alert("Victory 🎮");
+					resetGame();
+				}, 100);
+				return true;
 			}
 		}
 	}
@@ -78,8 +80,10 @@ function checkLost()
 		}
 	}
 
-	alert("LOOOOOOOOOOOOOST");
-	resetGame();
+	setTimeout(() => {
+		alert("Game Over 👾");
+		resetGame();
+	}, 100);
 	return (true);
 }
 
@@ -180,6 +184,38 @@ function resetGame()
 const restartBtn = document.querySelector(".restart-btn");
 restartBtn.addEventListener("click", resetGame);
 
+function compactToStart(arr)
+{
+	const result = [];
+	for (let i = 0; i < arr.length; i++)
+	{
+		if (arr[i] !== 0)
+			result.push(arr[i]);
+	}
+
+	while (result.length < arr.length)
+		result.push(0);
+	return result;
+}
+
+function compactToEnd(arr)
+{
+	const nums = [];
+	for (let i = 0; i < arr.length; i++)
+	{
+		if (arr[i] !== 0)
+			nums.push(arr[i]);
+	}
+
+	const zeros = arr.length - nums.length;
+	const result = [];
+	for (let i = 0; i < zeros; i++)
+		result.push(0);
+	for (let i = 0; i < nums.length; i++)
+		result.push(nums[i]);
+	return result;
+}
+
 function moveUp()
 {
 	const oldTable = copyTable(table);
@@ -191,15 +227,7 @@ function moveUp()
 			column.push(table[row][col]);
 		}
 
-		let updated = [];
-		for (let i = 0; i < column.length; i++)
-		{
-			if (column[i] !== 0)
-				updated.push(column[i]);
-		}
-
-		while (updated.length < 4)
-			updated.push(0);
+		let updated = compactToStart(column);
 
 		for (let i = 0; i < 3; i++)
 		{
@@ -211,15 +239,7 @@ function moveUp()
 			}
 		}
 
-		let final = [];
-		for (let i = 0; i < updated.length; i++)
-		{
-			if (updated[i] !== 0)
-				final.push(updated[i]);
-		}
-		
-		while (final.length < 4)
-			final.push(0);
+		let final = compactToStart(updated);
 
 		for (let row = 0; row < 4; row++)
 		{
@@ -247,24 +267,7 @@ function moveDown()
 			column.push(table[row][col]);
 		}
 
-		let numbers = [];
-		for (let i = 0; i < 4; i++)
-		{
-			if (column[i] !== 0)
-				numbers.push(column[i]);
-		}
-
-		let updated = [];
-		let zeros = 4 - numbers.length;
-		for (let i = 0; i < zeros; i++)
-		{
-			updated.push(0);
-		}
-
-		for (let i = 0; i < numbers.length; i++)
-		{
-			updated.push(numbers[i]);
-		}
+		let updated = compactToEnd(column);
 
 		for (let i = 3; i > 0; i--)
 		{
@@ -276,24 +279,7 @@ function moveDown()
 			}
 		}
 
-		let newNumbers = [];
-		for (let i = 0; i < 4; i++)
-		{
-			if (updated[i] !== 0)
-				newNumbers.push(updated[i]);
-		}
-
-		let final = [];
-		zeros = 4 - newNumbers.length;
-		for (let i = 0; i < zeros; i++)
-		{
-			final.push(0);
-		}
-
-		for (let i = 0; i < newNumbers.length; i++)
-		{
-			final.push(newNumbers[i]);
-		}
+		let final = compactToEnd(updated);
 
 		for (let row = 0; row < 4; row++)
 		{
@@ -321,15 +307,7 @@ function moveLeft()
 			rows.push(table[row][col]);
 		}
 
-		let updated = [];
-		for (let i = 0; i < rows.length; i++)
-		{
-			if (rows[i] !== 0)
-				updated.push(rows[i]);
-		}
-
-		while (updated.length < 4)
-			updated.push(0);
+		let updated = compactToStart(rows);
 
 		for (let i = 0; i < 3; i++)
 		{
@@ -341,15 +319,7 @@ function moveLeft()
 			}
 		}
 
-		let final = [];
-		for (let i = 0; i < updated.length; i++)
-		{
-			if (updated[i] !== 0)
-				final.push(updated[i]);
-		}
-		
-		while (final.length < 4)
-			final.push(0);
+		let final = compactToStart(updated);
 
 		for (let col = 0; col < 4; col++)
 		{
@@ -377,24 +347,7 @@ function moveRight()
 			rows.push(table[row][col]);
 		}
 
-		let numbers = [];
-		for (let i = 0; i < 4; i++)
-		{
-			if (rows[i] !== 0)
-				numbers.push(rows[i]);
-		}
-
-		let updated = [];
-		let zeros = 4 - numbers.length;
-		for (let i = 0; i < zeros; i++)
-		{
-			updated.push(0);
-		}
-
-		for (let i = 0; i < numbers.length; i++)
-		{
-			updated.push(numbers[i]);
-		}
+		let updated = compactToEnd(rows);
 
 		for (let i = 3; i > 0; i--)
 		{
@@ -406,24 +359,7 @@ function moveRight()
 			}
 		}
 		
-		let newNumbers = [];
-		for (let i = 0; i < 4; i++)
-		{
-			if (updated[i] !== 0)
-				newNumbers.push(updated[i]);
-		}
-
-		let final = [];
-		zeros = 4 - newNumbers.length;
-		for (let i = 0; i < zeros; i++)
-		{
-			final.push(0);
-		}
-
-		for (let i = 0; i < newNumbers.length; i++)
-		{
-			final.push(newNumbers[i]);
-		}
+		let final = compactToEnd(updated);
 
 		for (let col = 0; col < 4; col++)
 		{
@@ -441,8 +377,6 @@ function moveRight()
 }
 
 document.addEventListener("keydown", function(event) {
-	//event.preventDefault();
-
 	switch(event.key) {
 		case "ArrowUp":
 			moveUp();

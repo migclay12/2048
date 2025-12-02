@@ -73,7 +73,7 @@ body {
     cursor: pointer;
 }
 
-button:hover {
+.restart-btn:hover {
     background: #b69aff;
 }
 
