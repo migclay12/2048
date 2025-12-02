@@ -149,11 +149,19 @@ function moveUp()
 			}
 		}
 
-		//VOLVER A DESPALAZAR
+		let final = [];
+		for (let i = 0; i < updated.length; i++)
+		{
+			if (updated[i] !== 0)
+				final.push(updated[i]);
+		}
+		
+		while (final.length < 4)
+			final.push(0);
 
 		for (let row = 0; row < 4; row++)
 		{
-			table[row][col] = updated[row];
+			table[row][col] = final[row];
 		}
 	}
 	
@@ -206,6 +214,7 @@ function moveDown()
 
 		for (let row = 0; row < 4; row++)
 		{
+			//meter la final
 			table[row][col] = updated[row];
 		}
 	}
@@ -250,6 +259,7 @@ function moveLeft()
 
 		for (let col = 0; col < 4; col++)
 		{
+			//meter la final
 			table[row][col] = updated[col];
 		}
 	}
@@ -302,6 +312,7 @@ function moveRight()
 
 		for (let col = 0; col < 4; col++)
 		{
+			//meter la final
 			table[row][col] = updated[col];
 		}
 	}
