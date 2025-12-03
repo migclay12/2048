@@ -113,19 +113,18 @@ body {
 	100% { transform: scale(1); }
 }
 
-.tile-2    { background: #E0E0E0; color: #000; }  /* gris claro */
-.tile-4    { background: #A6CEE3; color: #000; }  /* azul claro */
-.tile-8    { background: #1F78B4; color: #fff; }  /* azul fuerte */
-.tile-16   { background: #33A02C; color: #fff; }  /* verde accesible */
-.tile-32   { background: #FB9A99; color: #000; }  /* salmón */
-.tile-64   { background: #E31A1C; color: #fff; }  /* rojo fuerte */
-.tile-128  { background: #FDBF6F; color: #000; }  /* naranja suave */
-.tile-256  { background: #FF7F00; color: #fff; }  /* naranja fuerte */
-.tile-512  { background: #CAB2D6; color: #000; }  /* lavanda */
-.tile-1024 { background: #6A3D9A; color: #fff; }  /* púrpura fuerte */
-.tile-2048 { background: #B15928; color: #fff; }  /* marrón */
+.tile-2    { background: #E0E0E0; color: #000; }
+.tile-4    { background: #A6CEE3; color: #000; }
+.tile-8    { background: #1F78B4; color: #fff; }
+.tile-16   { background: #33A02C; color: #fff; }
+.tile-32   { background: #FB9A99; color: #000; }
+.tile-64   { background: #E31A1C; color: #fff; }
+.tile-128  { background: #FDBF6F; color: #000; }
+.tile-256  { background: #FF7F00; color: #fff; }
+.tile-512  { background: #CAB2D6; color: #000; }
+.tile-1024 { background: #6A3D9A; color: #fff; }
+.tile-2048 { background: #B15928; color: #fff; }
 
-/* Media queries para pantallas pequeñas */
 @media (max-width: 768px) {
 	body {
 		padding: 5px;

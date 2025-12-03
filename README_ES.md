@@ -22,30 +22,22 @@ Este proyecto es una implementación del popular juego 2048, donde el objetivo e
 
 ## 🚀 Instalación y Ejecución
 
-### Opción 1: Con Docker (Recomendado)
+### Descargar el archivo
 
 ```bash
+# Descargar el repositorio
+git clone git@github.com:migclay12/2048.git
+```
+
+### Con Docker
+
+```bash
+# Dirigite a la carpeta ex00/
 # Construir y ejecutar con docker-compose
-docker-compose up --build
+cd ex00/ && docker-compose up --build
 
 # El juego estará disponible en http://localhost:5173
 ```
-
-### Opción 2: Servidor Local Simple
-
-```bash
-# Con Python 3
-python -m http.server 8000
-
-# O con Node.js (si tienes http-server instalado)
-npx http-server
-
-# Luego abre http://localhost:8000 en tu navegador
-```
-
-### Opción 3: Abrir Directamente
-
-Simplemente abre el archivo `index.html` en tu navegador (algunas funcionalidades pueden no funcionar por restricciones CORS).
 
 ## 📁 Estructura del Proyecto
 
@@ -84,24 +76,12 @@ El código está organizado en módulos separados por responsabilidad:
 ## 🛠️ Tecnologías Utilizadas
 
 - HTML5
-- CSS3 (Grid, Flexbox, Animations, Media Queries)
-- JavaScript (ES6+)
-- Docker & Nginx (para despliegue)
+- CSS3
+- JavaScript
+- Docker & Nginx
 
 ## 📝 Notas
 
 - El juego guarda el top score durante la sesión (se resetea al recargar la página)
 - Las animaciones tienen una duración de 200ms
-- El grid es de 4x4 por defecto (configurable en `main.js`)
-
-## 🐛 Solución de Problemas
-
-Si el juego no carga correctamente:
-1. Verifica que todos los archivos JavaScript estén en el orden correcto en `index.html`
-2. Abre la consola del navegador (F12) para ver errores
-3. Asegúrate de que el servidor esté sirviendo los archivos correctamente (no uses `file://`)
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible para uso educativo.
-
+- El grid es de 4x4 por defecto
