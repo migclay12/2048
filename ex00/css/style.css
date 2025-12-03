@@ -157,3 +157,56 @@ body {
 		margin-bottom: clamp(-30px, -6vw, -60px);
 	}
 }
+
+@media (max-width: 600px) {
+
+	body {
+		padding: 0;
+	}
+
+	.game-title {
+		margin-bottom: -20px;
+	}
+
+	.grid-container {
+		width: 95vw;
+		height: 95vw;
+		border-radius: 15px;
+	}
+
+	.grid-container div {
+		font-size: clamp(20px, 10vw, 50px);
+		border-radius: 12px;
+	}
+
+	.score-container {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 5px;
+	}
+
+	.restart-btn {
+		width: 90vw;
+		margin: 0;
+		font-size: clamp(18px, 6vw, 28px);
+		border-radius: 12px;
+	}
+
+	.score {
+		font-size: clamp(18px, 6vw, 28px);
+		margin: 0;
+	}
+}
+
+@media (max-width: 380px) {
+	.grid-container {
+		width: 98vw;
+		height: 98vw;
+	}
+
+	.score,
+	.restart-btn {
+		font-size: 20px;
+	}
+}
